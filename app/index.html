@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wasla</title><meta name="robots" content="noindex">
+<link rel="stylesheet" href="/app/app.css"><script type="module" src="/app/app.js"></script></head>
+<body>
+<main id="auth" class="auth hidden">
+ <div class="auth-card">
+  <h1 class="logo">Wasla<span>.</span></h1>
+  <p class="muted">Réponses automatiques Instagram pour votre business.</p>
+  <form id="auth-form">
+   <label>E-mail<input name="email" type="email" required autocomplete="email"></label>
+   <label>Mot de passe<input name="password" type="password" required minlength="8" autocomplete="current-password"></label>
+   <button type="submit" data-auth-submit>Se connecter</button>
+  </form>
+  <p role="status" id="auth-msg" class="msg"></p>
+  <button type="button" class="link" id="auth-switch">Pas encore de compte ? Créer un compte</button>
+ </div>
+</main>
+
+<main id="onboard" class="auth hidden">
+ <div class="auth-card">
+  <h1 class="logo">Wasla<span>.</span></h1>
+  <p>Créez votre business pour commencer.</p>
+  <form id="ws-form"><label>Nom du business<input name="name" required minlength="2" maxlength="80" placeholder="Ex. KLINOVA"></label><button type="submit">Créer</button></form>
+  <p role="status" id="ws-msg" class="msg"></p>
+  <button type="button" class="link" data-signout>Se déconnecter</button>
+ </div>
+</main>
+
+<div id="shell" class="shell hidden">
+ <header class="top">
+  <div class="logo">Wasla<span>.</span></div>
+  <select id="ws-select" aria-label="Business"></select>
+  <nav class="tabs" role="tablist">
+   <button type="button" data-tab="inbox" class="active">Messages <b id="unread" class="badge hidden"></b></button>
+   <button type="button" data-tab="rules">Réponses auto</button>
+   <button type="button" data-tab="instagram">Instagram</button>
+  </nav>
+  <button type="button" class="link" data-signout>Se déconnecter</button>
+ </header>
+ <p role="status" id="msg" class="msg banner"></p>
+
+ <section id="tab-inbox" class="tab">
+  <div class="inbox">
+   <aside class="contacts"><input id="contact-search" type="search" placeholder="Rechercher…" aria-label="Rechercher"><div id="contact-list"></div></aside>
+   <div class="thread" id="thread"><p class="empty">Choisissez une conversation.</p></div>
+  </div>
+ </section>
+
+ <section id="tab-rules" class="tab hidden">
+  <div class="rules-head"><div><h2>Réponses automatiques</h2><p class="muted">Quand un message ou un commentaire contient un mot-clé, Wasla répond tout seul. Une règle sans mot-clé répond à tout ce qu'aucune autre règle n'a pris.</p></div>
+   <button type="button" id="rule-new">+ Nouvelle règle</button></div>
+  <form id="rule-form" class="card hidden">
+   <input type="hidden" name="id">
+   <div class="grid2">
+    <label>Nom (pour vous)<input name="name" maxlength="80" placeholder="Ex. Prix"></label>
+    <label>Quand<select name="kind"><option value="dm">Quelqu'un envoie un message</option><option value="comment">Quelqu'un commente un post / reel</option></select></label>
+   </div>
+   <label>Mots-clés (séparés par des virgules)<input name="keywords" placeholder="prix, combien, بشحال, thaman"></label>
+   <label>Réponse en message privé<textarea dir="auto" name="reply" rows="4" maxlength="1000" required placeholder="Bonjour {name} ! Le prix est…"></textarea></label>
+   <p class="hint">{name} est remplacé par le nom du client.</p>
+   <label data-only="comment">Réponse publique sous le commentaire (facultatif)<input dir="auto" name="public_reply" maxlength="300" placeholder="Envoyé en privé ✅"></label>
+   <label class="check"><input type="checkbox" name="is_active" checked> Active</label>
+   <div class="actions"><button type="submit">Enregistrer</button><button type="button" class="secondary" id="rule-cancel">Annuler</button></div>
+  </form>
+  <div id="rule-list"></div>
+ </section>
+
+ <section id="tab-instagram" class="tab hidden">
+  <div class="card" id="ig-status"></div>
+  <form class="card" id="settings-form">
+   <h3>Réglages</h3>
+   <label class="check"><input type="checkbox" name="auto_reply_dm"> Répondre automatiquement aux messages</label>
+   <label class="check"><input type="checkbox" name="auto_reply_comments"> Répondre automatiquement aux commentaires</label>
+   <label>Quand quelqu'un de l'équipe répond, pause des réponses automatiques (minutes)<input name="human_pause_minutes" type="number" min="0" max="10080"></label>
+   <div class="actions"><button type="submit">Enregistrer</button></div>
+  </form>
+  <div class="card"><h3>Activité récente</h3><div id="event-log" class="log"></div></div>
+ </section>
+</div>
+</body></html>
