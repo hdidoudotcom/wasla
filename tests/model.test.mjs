@@ -10,6 +10,8 @@ assert.ok(hasKeyword('بشحال هادا؟','بشحال'));
 assert.ok(hasKeyword('شحال الثمن','الثمن'));
 assert.ok(hasKeyword('ach howa taman dyal','taman dyal'));
 assert.ok(hasKeyword('أشنو','اشنو'),'hamza forms are unified');
+assert.ok(hasKeyword('بِشْحَال','بشحال'),'Arabic vowel marks are ignored');
+assert.ok(hasKeyword('مدينة','مدينه'),'taa marbuta unified');
 
 const rules=[
  {id:'any',kind:'dm',keywords:[],reply:'Fallback',is_active:true,position:9},

@@ -5,9 +5,9 @@ export const REPLY_WINDOW_MS=24*3600000;
 
 // Lower case, no accents, Arabic letter variants unified, punctuation removed.
 export function normalize(value){
- return String(value||'').normalize('NFD').replace(/[̀-ًͯ-ٰٟـ]/g,'').toLowerCase()
-  .replace(/[آأإ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي')
-  .replace(/[^a-z0-9ء-ي]+/g,' ').trim();
+ return String(value||'').normalize('NFD').replace(/[\u0300-\u036f\u064b-\u065f\u0670\u0640]/g,'').toLowerCase()
+  .replace(/[\u0622\u0623\u0625]/g,'\u0627').replace(/\u0629/g,'\u0647').replace(/\u0649/g,'\u064a')
+  .replace(/[^a-z0-9\u0621-\u064a]+/g,' ').trim();
 }
 // A keyword matches as a whole word or phrase ("prix" matches "le prix ?" but not "prixe").
 export function hasKeyword(text,keyword){
