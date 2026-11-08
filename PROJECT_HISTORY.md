@@ -26,7 +26,7 @@
    - Webhooks: callback URL `https://<project>.supabase.co/functions/v1/instagram?webhook=1`, verify token = `IG_VERIFY_TOKEN`; subscribe to `messages` and `comments`.
    - App roles → add the KLINOVA Instagram account as an **Instagram tester** and accept the invitation in Instagram (Settings → Website permissions / Apps and websites). Until App Review, only accounts with a role on the app work.
 3. **Edge Function secrets:** `IG_APP_ID`, `IG_APP_SECRET`, `IG_VERIFY_TOKEN` (random), `WASLA_APP_URL`. Redeploy `instagram` (`verify_jwt=false`) whenever its files change.
-4. ✅ 2026-11-08 **Netlify site `wasla-ma`** created (id `b3cc15b6-4479-4683-adcc-69106f2331b1`, team hdidoudotcom, URL https://wasla-ma.netlify.app; the names `wasla` and `wasla-app` were taken). `app/config.js` already filled. **Not deployed yet**: the first deploy needs the owner's explicit "deploy". Linking the site to the GitHub repo for automatic deploys is done in the Netlify UI.
+4. ✅ 2026-11-08 **Netlify site `wasla-ma`** created (id `b3cc15b6-4479-4683-adcc-69106f2331b1`, team hdidoudotcom, URL https://wasla-ma.netlify.app; the names `wasla` and `wasla-app` were taken). `app/config.js` already filled. First deploy done 2026-11-08 on the owner's "deploy" (deploy `6af05bb759bf75d202016dbc`, uploaded from this session's checkout with the Netlify MCP deploy command; needs host `netlify-mcp.netlify.app` allowed in the Claude environment, and `NODE_USE_ENV_PROXY=1`). Linking the site to the GitHub repo for automatic deploys is done in the Netlify UI.
 5. Open `/app/`, create an account, create the business, Instagram tab → Connect.
 
 ## 4. Timeline
@@ -34,7 +34,7 @@
 | Date | What | Files |
 |---|---|---|
 | 2026-11-06 | Owner request: ManyChat-like Instagram automation as a separate multi-business platform, name chosen: Wasla. First version written (not deployed): businesses + members with roles, Instagram connection (OAuth, long-lived token, auto refresh), webhook (signed), keyword rules for private messages and comments (one private reply per comment, optional public reply), fallback rules, 6 h anti-repeat per rule and person, pause after a human reply, shared inbox with 24 h reply window, activity log. Tests: model + database permissions. | supabase/schema.sql, supabase/functions/instagram/, app/, tests/ |
-| 2026-11-08 | Netlify site `wasla-ma` created (empty, not deployed). | — |
+| 2026-11-08 | Netlify site `wasla-ma` created and first deploy on the owner's "deploy": https://wasla-ma.netlify.app (sign-in page; Instagram connection not usable until the Meta app and secrets exist). | — |
 | 2026-11-06 | Supabase project `wasla` created (free), schema applied (`wasla_initial_schema`), `instagram` Edge Function v1 deployed, app config filled. Security advisor: only expected notices (server-only tables without policies; RPCs callable by signed-in users on purpose). | app/config.js |
 
 ## 5. Rules you must not break
@@ -47,7 +47,7 @@
 
 ## 6. Open items
 
-- Setup of section 3 still to do: first Netlify deploy (waiting for "deploy"), Meta app, Edge Function secrets, Supabase Auth URLs (`https://wasla-ma.netlify.app/app/`), domain. Ask the owner before creating paid resources.
+- Setup of section 3 still to do: Meta app, Edge Function secrets, Supabase Auth URLs (owner, in the Supabase dashboard: Site URL + redirect `https://wasla-ma.netlify.app/app/`; until then sign-up confirmation e-mails point to the wrong address), domain. Ask the owner before creating paid resources.
 - Supabase's built-in e-mail sender is limited to a few sign-up e-mails per hour; add a custom SMTP before real businesses sign up.
 - **App Review + Meta Business Verification** are required before businesses other than testers can connect (permissions `instagram_business_manage_messages`, `instagram_business_manage_comments`; Meta asks for a screencast).
 - Not built yet: Arabic interface (UI is French), inviting team members to a business, password reset page, rules for a specific post chosen from a list (column `rules.media_id` exists, no UI), quick-reply buttons, subscriptions/billing, WhatsApp.
